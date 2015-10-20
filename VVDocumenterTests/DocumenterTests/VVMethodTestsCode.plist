@@ -51,7 +51,7 @@
 			<key>source</key>
 			<string>-(void)whenLinked:(void (^)(void))actionHandler</string>
 			<key>uniform</key>
-			<string>-(void)whenLinked:(void (^)(void))actionHandler</string>
+			<string>-(void)whenLinked:(void(^)(void))actionHandler</string>
 			<key>result</key>
 			<string>/**
  *  &lt;#Description#&gt;
@@ -59,6 +59,31 @@
  *  @param actionHandler &lt;#actionHandler description#&gt;
  */</string>
 		</dict>
+		<dict>
+			<key>source</key>
+			<string>-(void) writeMediasetJSON: (void (^)(void)) uploadCompletionBlock{}</string>
+			<key>uniform</key>
+			<string>-(void)writeMediasetJSON:(void(^)(void))uploadCompletionBlock{}</string>
+			<key>result</key>
+			<string>/**
+ *  &lt;#Description#&gt;
+ *
+ *  @param uploadCompletionBlock &lt;#uploadCompletionBlock description#&gt;
+ */</string>
+		</dict>
+        <dict>
+            <key>source</key>
+            <string>-(void) createNewMediaset:(NSString *) collectionName withCompletionBlock: (void (^)(void)) completionBlock;</string>
+            <key>uniform</key>
+            <string>-(void)createNewMediaset:(NSString *)collectionName withCompletionBlock:(void(^)(void))completionBlock;</string>
+            <key>result</key>
+            <string>/**
+ *  &lt;#Description#&gt;
+ *
+ *  @param collectionName  &lt;#collectionName description#&gt;
+ *  @param completionBlock &lt;#completionBlock description#&gt;
+ */</string>
+        </dict>
 	</array>
 	<key>vv_isCFunction</key>
 	<array>
@@ -192,7 +217,7 @@
 			<key>source</key>
 			<string>void print2DList(int rowCount, int (*p)[10]);</string>
 			<key>uniform</key>
-			<string>void print2DList(int rowCount, int (*p)[10]);</string>
+			<string>void print2DList(int rowCount, int(*p)[10]);</string>
 			<key>result</key>
 			<string>/**
  *  &lt;#Description#&gt;
@@ -271,7 +296,7 @@
 			<key>source</key>
 			<string>#define ABS(A)	((A) &lt; 0 ? (-(A)) : (A))</string>
 			<key>uniform</key>
-			<string>#define ABS(A)((A)&lt; 0 ?(-(A)) :(A))</string>
+			<string>#define ABS(A)((A)&lt; 0 ?(-(A)):(A))</string>
 			<key>result</key>
 			<string>/**
  *  &lt;#Description#&gt;
@@ -330,7 +355,7 @@
 			<string>/**
  *  &lt;#Description#&gt;
  */
-typedef NS_ENUM(NSInteger, SIAlertViewBackgroundStyle){
+typedef NS_ENUM(NSInteger, SIAlertViewBackgroundStyle) {
 /**
  *  &lt;#Description#&gt;
  */
@@ -401,6 +426,337 @@ SIAlertViewBackgroundStyleSolid,
  *  &lt;#Description#&gt;
  */</string>
 		</dict>
+	</array>
+	<key>vv_isSwiftFunction</key>
+	<array>
+        <dict>
+            <key>source</key>
+            <string>func testParasType(var a: Int, let b: Int, inout c: Int, d: Int) {</string>
+            <key>uniform</key>
+            <string>func testParasType(var a: Int, let b: Int, inout c: Int, d: Int){</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter a: &lt;#a description#&gt;
+ - parameter b: &lt;#b description#&gt;
+ - parameter c: &lt;#c description#&gt;
+ - parameter d: &lt;#d description#&gt;
+ */</string>
+        </dict>
+		<dict>
+			<key>source</key>
+			<string>func sayHello(personName: String) -&gt; String  {</string>
+			<key>uniform</key>
+			<string>func sayHello(personName: String)-&gt; String  {</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter personName: &lt;#personName description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>func go(para: Int -&gt; String) -&gt; (String -&gt; String) {</string>
+			<key>uniform</key>
+			<string>func go(para: Int -&gt; String)-&gt;(String -&gt; String){</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter para: &lt;#para description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>public func go (miao: Int, wu: String) -&gt; Void {</string>
+			<key>uniform</key>
+			<string>public func go(miao: Int, wu: String)-&gt; Void {</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter miao: &lt;#miao description#&gt;
+ - parameter wu:   &lt;#wu description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>init(style: Style, _ gearing: Gearing, #handlebar: Handlebar, frameSize centimeters: Int = 1) {</string>
+			<key>uniform</key>
+			<string>init(style: Style, _ gearing: Gearing, #handlebar: Handlebar, frameSize centimeters: Int = 1){</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter style:       &lt;#style description#&gt;
+ - parameter gearing:     &lt;#gearing description#&gt;
+ - parameter handlebar:   &lt;#handlebar description#&gt;
+ - parameter centimeters: &lt;#centimeters description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>func Test(input : Int, condition : (Int, String) -&gt; Bool = {(t: Int,k: String) in return true}) -&gt; (Int,Int) {</string>
+			<key>uniform</key>
+			<string>func Test(input : Int, condition :(Int, String)-&gt; Bool = {(t: Int,k: String)in return true})-&gt;(Int,Int){</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter input:     &lt;#input description#&gt;
+ - parameter condition: &lt;#condition description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didReceiveChallenge challenge: NSURLAuthenticationChallenge!, completionHandler: ((NSURLSessionAuthChallengeDisposition, NSURLCredential!) -&gt; Void)!) {</string>
+			<key>uniform</key>
+			<string>func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didReceiveChallenge challenge: NSURLAuthenticationChallenge!, completionHandler:((NSURLSessionAuthChallengeDisposition, NSURLCredential!)-&gt; Void)!){</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter session:           &lt;#session description#&gt;
+ - parameter task:              &lt;#task description#&gt;
+ - parameter challenge:         &lt;#challenge description#&gt;
+ - parameter completionHandler: &lt;#completionHandler description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>func makeTuple(a:Int, b:Int, c:Int) -&gt; (sum:Int, product:Int, max:Int) {</string>
+			<key>uniform</key>
+			<string>func makeTuple(a:Int, b:Int, c:Int)-&gt;(sum:Int, product:Int, max:Int){</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - parameter a: &lt;#a description#&gt;
+ - parameter b: &lt;#b description#&gt;
+ - parameter c: &lt;#c description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+		</dict>
+        <dict>
+            <key>source</key>
+            <string>public subscript (key: KeyType) -> ValueType? {</string>
+            <key>uniform</key>
+            <string>public subscript(key: KeyType)-> ValueType? {</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter key: &lt;#key description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+        </dict>
+        <dict>
+            <key>source</key>
+            <string>func getSomething(input:String?, success: (Int) -> Void, failure: (NSHTTPURLResponse?, AnyObject?, NSError?) -> Void) {</string>
+            <key>uniform</key>
+            <string>func getSomething(input:String?, success:(Int)-> Void, failure:(NSHTTPURLResponse?, AnyObject?, NSError?)-> Void){</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter input:   &lt;#input description#&gt;
+ - parameter success: &lt;#success description#&gt;
+ - parameter failure: &lt;#failure description#&gt;
+ */</string>
+        </dict>
+        <dict>
+            <key>source</key>
+            <string>func methodCouldThrows(count: Int) throws -> Int {</string>
+            <key>uniform</key>
+            <string>func methodCouldThrows(count: Int)throws -> Int {</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter count: &lt;#count description#&gt;
+
+ - throws: &lt;#throws value description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+        </dict>
+        <dict>
+            <key>source</key>
+            <string>func methodCouldThrows() throws {</string>
+            <key>uniform</key>
+            <string>func methodCouldThrows()throws {</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - throws: &lt;#throws value description#&gt;
+ */</string>
+        </dict>
+        <dict>
+            <key>source</key>
+            <string>func methodCouldThrows(count: Int, name: String, f: (Int, String) throws -> Void) rethrows -> Int {</string>
+            <key>uniform</key>
+            <string>func methodCouldThrows(count: Int, name: String, f:(Int, String)throws -> Void)rethrows -> Int {</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter count: &lt;#count description#&gt;
+ - parameter name:  &lt;#name description#&gt;
+ - parameter f:     &lt;#f description#&gt;
+
+ - throws: &lt;#throws value description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+        </dict>
+        <dict>
+            <key>source</key>
+            <string>public class func amethod(count: Int) -> Int? {</string>
+            <key>uniform</key>
+            <string>public class func amethod(count: Int)-> Int? {</string>
+            <key>result</key>
+            <string>/**
+ &lt;#Description#&gt;
+
+ - parameter count: &lt;#count description#&gt;
+
+ - returns: &lt;#return value description#&gt;
+ */</string>
+        </dict>
+	</array>
+	<key>vv_isSwiftEnum</key>
+	<array>
+		<dict>
+			<key>source</key>
+			<string>enum Handlebar {
+    case Riser, Café, Drop, Bullhorn
+}</string>
+			<key>uniform</key>
+			<string>enum Handlebar { case Riser, Café, Drop, Bullhorn }</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - Riser:    &lt;#Riser description#&gt;
+ - Café:     &lt;#Café description#&gt;
+ - Drop:     &lt;#Drop description#&gt;
+ - Bullhorn: &lt;#Bullhorn description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>public enum Gearing {
+    case Fixed
+    case Freewheel(speeds: Int)
+}</string>
+			<key>uniform</key>
+			<string>public enum Gearing { case Fixed case Freewheel(speeds: Int)}</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - Fixed:     &lt;#Fixed description#&gt;
+ - Freewheel: &lt;#Freewheel description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>enum ASCIIControlCharacter: Character {
+    case Tab = &quot;\t&quot;
+    case LineFeed = &quot;\n&quot;
+    case CarriageReturn = &quot;\r&quot;
+}</string>
+			<key>uniform</key>
+			<string>enum ASCIIControlCharacter: Character { case Tab = &quot;\t&quot; case LineFeed = &quot;\n&quot; case CarriageReturn = &quot;\r&quot; }</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - Tab:            &lt;#Tab description#&gt;
+ - LineFeed:       &lt;#LineFeed description#&gt;
+ - CarriageReturn: &lt;#CarriageReturn description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>enum Planet: Int {
+    case Mercury = 1, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+}</string>
+			<key>uniform</key>
+			<string>enum Planet: Int { case Mercury = 1, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune }</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - Mercury: &lt;#Mercury description#&gt;
+ - Venus:   &lt;#Venus description#&gt;
+ - Earth:   &lt;#Earth description#&gt;
+ - Mars:    &lt;#Mars description#&gt;
+ - Jupiter: &lt;#Jupiter description#&gt;
+ - Saturn:  &lt;#Saturn description#&gt;
+ - Uranus:  &lt;#Uranus description#&gt;
+ - Neptune: &lt;#Neptune description#&gt;
+ */</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>enum Barcode {
+    case UPCA(Int, Int, Int, Int)
+    case QRCode(String)
+}</string>
+			<key>uniform</key>
+			<string>enum Barcode { case UPCA(Int, Int, Int, Int)case QRCode(String)}</string>
+			<key>result</key>
+			<string>/**
+ &lt;#Description#&gt;
+
+ - UPCA:   &lt;#UPCA description#&gt;
+ - QRCode: &lt;#QRCode description#&gt;
+ */</string>
+		</dict>
+	</array>
+	<key>vv_isSwiftProperty</key>
+	<array>
+		<dict>
+			<key>source</key>
+			<string>let handlebar: Handlebar</string>
+			<key>uniform</key>
+			<string>let handlebar: Handlebar</string>
+			<key>result</key>
+			<string>/// &lt;#Description#&gt;</string>
+		</dict>
+	</array>
+	<key>vv_isSwiftExtension</key>
+	<array>
+		<dict>
+			<key>source</key>
+			<string>extension MyClass: SomeDelegate {</string>
+			<key>uniform</key>
+			<string>extension MyClass: SomeDelegate {</string>
+			<key>result</key>
+			<string>// MARK: - &lt;#SomeDelegate#&gt;</string>
+		</dict>
+        <dict>
+            <key>source</key>
+            <string>private extension MyClass\n {</string>
+            <key>uniform</key>
+            <string>private extension MyClass\n {</string>
+            <key>result</key>
+            <string>// MARK: - &lt;#Description#&gt;</string>
+        </dict>
 	</array>
 </dict>
 </plist>

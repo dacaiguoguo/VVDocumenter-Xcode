@@ -3,13 +3,34 @@
 //  VVDocumenter-Xcode
 //
 //  Created by 王 巍 on 13-8-3.
-//  Copyright (c) 2013年 OneV's Den. All rights reserved.
 //
+//  Copyright (c) 2015 Wei Wang <onevcat@gmail.com>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 #import "VVDocumenterSetting.h"
 #import <Carbon/Carbon.h>
+#import "VVProject.h"
 
 NSString *const VVDDefaultTriggerString = @"///";
+NSString *const VVDDefaultAuthorString = @"";
+NSString *const VVDDefaultDateInfomationFormat = @"YY-MM-dd HH:MM:ss";
 
 NSString *const kVVDUseSpaces = @"com.onevcat.VVDocumenter.useSpaces";
 NSString *const kVVDSpaceCount = @"com.onevcat.VVDocumenter.spaceCount";
@@ -17,9 +38,16 @@ NSString *const kVVDTriggerString = @"com.onevcat.VVDocumenter.triggerString";
 NSString *const kVVDPrefixWithStar = @"com.onevcat.VVDocumenter.prefixWithStar";
 NSString *const kVVDPrefixWithSlashes = @"com.onevcat.VVDocumenter.prefixWithSlashes";
 NSString *const kVVDAddSinceToComments = @"com.onevcat.VVDocumenter.addSinceToComments";
+NSString *const kVVDSinceVersion = @"com.onevcat.VVDocumenter.sinceVersion";
+NSString *const kVVDSinceOption = @"com.onevcat.VVDocumenter.sinceOption";
+NSString *const kVVDBriefDescription = @"com.onevcat.VVDocumenter.briefDescription";
 NSString *const kVVDUserHeaderDoc = @"com.onevcat.VVDocumenter.useHeaderDoc";
 NSString *const kVVDNoBlankLinesBetweenFields = @"com.onevcat.VVDocumenter.noBlankLinesBetweenFields";
 NSString *const kVVDNoArgumentPadding = @"com.onevcat.VVDocumenter.noArgumentPadding";
+NSString *const kVVDUseAuthorInformation = @"com.onevcat.VVDocumenter.useAuthorInformation";
+NSString *const kVVDAuthorInfomation = @"com.onevcat.VVDocumenter.authorInfomation";
+NSString *const kVVDUseDateInformation = @"com.onevcat.VVDocumenter.useDateInformation";
+NSString *const kVVDDateInformationFormat = @"com.onevcat.VVDocumenter.dateInformationFomat";
 @implementation VVDocumenterSetting
 
 + (VVDocumenterSetting *)defaultSetting
@@ -53,12 +81,26 @@ NSString *const kVVDNoArgumentPadding = @"com.onevcat.VVDocumenter.noArgumentPad
     NSString *layoutID = (__bridge NSString *)TISGetInputSourceProperty(inputSource, kTISPropertyInputSourceID);
     CFRelease(inputSource);
     
-    if ([layoutID rangeOfString:@"Dvorak" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+    if ([layoutID rangeOfString:@"Dvorak" options:NSCaseInsensitiveSearch].location != NSNotFound && ![layoutID containsString:@"QWERTYCMD"]) {
         return YES;
     } else {
         return NO;
     }
 }
+
+-(BOOL) useWorkmanLayout
+{
+    TISInputSourceRef inputSource = TISCopyCurrentKeyboardLayoutInputSource();
+    NSString *layoutID = (__bridge NSString *)TISGetInputSourceProperty(inputSource, kTISPropertyInputSourceID);
+    CFRelease(inputSource);
+
+    if ([layoutID rangeOfString:@"Workman" options:NSCaseInsensitiveSearch].location != NSNotFound && ![layoutID containsString:@"QWERTYCMD"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 
 -(NSInteger) spaceCount
 {
@@ -98,6 +140,17 @@ NSString *const kVVDNoArgumentPadding = @"com.onevcat.VVDocumenter.noArgumentPad
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(VVDSinceOption) sinceOption
+{
+    return (VVDSinceOption)[[NSUserDefaults standardUserDefaults] integerForKey:kVVDSinceOption];
+}
+
+- (void)setSinceOption:(VVDSinceOption)sinceOption
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:sinceOption forKey:kVVDSinceOption];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(BOOL) prefixWithStar
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDPrefixWithStar];
@@ -131,6 +184,34 @@ NSString *const kVVDNoArgumentPadding = @"com.onevcat.VVDocumenter.noArgumentPad
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (NSString *)sinceVersion
+{
+    NSString *sinceVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kVVDSinceVersion];
+
+    if ( ! sinceVersion ) {
+        sinceVersion = @"";
+    }
+
+    return sinceVersion;
+}
+
+- (void)setSinceVersion:(NSString *)sinceVersion
+{
+    [[NSUserDefaults standardUserDefaults] setObject:sinceVersion forKey:kVVDSinceVersion];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(BOOL) briefDescription
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDBriefDescription];
+}
+
+-(void) setBriefDescription:(BOOL)brief
+{
+    [[NSUserDefaults standardUserDefaults] setBool:brief forKey:kVVDBriefDescription];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(BOOL) useHeaderDoc
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDUserHeaderDoc];
@@ -158,6 +239,60 @@ NSString *const kVVDNoArgumentPadding = @"com.onevcat.VVDocumenter.noArgumentPad
 -(void) setAlignArgumentComments:(BOOL)alignArgumentComments
 {
     [[NSUserDefaults standardUserDefaults] setBool:!alignArgumentComments forKey:kVVDNoArgumentPadding];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(BOOL)useAuthorInformation
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDUseAuthorInformation];
+}
+-(void) setUseAuthorInformation:(BOOL)useAuthorInformation
+{
+    [[NSUserDefaults standardUserDefaults] setBool:useAuthorInformation forKey:kVVDUseAuthorInformation];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)authorInformation {
+    NSString *authorInformation = [[NSUserDefaults standardUserDefaults] objectForKey:kVVDAuthorInfomation];
+    if (authorInformation.length <= 0 ) {
+        NSString *name = [[VVProject projectForKeyWindow] organizeationName];
+        if (name.length <= 0) {
+            NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+            name = [environment objectForKey:@"LOGNAME"];
+        }
+        
+        if (name.length > 0) {
+            authorInformation = name;
+        }else{
+            authorInformation = VVDDefaultAuthorString;
+        }
+    }
+    return authorInformation;
+}
+-(void)setAuthorInformation:(NSString *)authorInformation {
+    [[NSUserDefaults standardUserDefaults] setObject:authorInformation forKey:kVVDAuthorInfomation];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(BOOL)useDateInformation
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kVVDUseDateInformation];
+}
+-(void) setUseDateInformation:(BOOL)useDateInformation
+{
+    [[NSUserDefaults standardUserDefaults] setBool:useDateInformation forKey:kVVDUseDateInformation];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)dateInformationFormat {
+    NSString *formatString = [[NSUserDefaults standardUserDefaults] objectForKey:kVVDDateInformationFormat];
+    if (formatString == nil || formatString.length <= 0) {
+        formatString = VVDDefaultDateInfomationFormat;
+    }
+    return formatString;
+}
+-(void)setDateInformationFormat:(NSString *)dateInformationFormat {
+    [[NSUserDefaults standardUserDefaults] setObject:dateInformationFormat forKey:kVVDDateInformationFormat];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

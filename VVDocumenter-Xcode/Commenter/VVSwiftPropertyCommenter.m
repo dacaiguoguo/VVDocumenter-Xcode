@@ -1,9 +1,8 @@
 //
-//  Argument.h
+//  VVSwiftPropertyCommenter.m
 //  VVDocumenter-Xcode
-
 //
-//  Created by 王 巍 on 13-7-19.
+//  Created by 王 巍 on 14-7-31.
 //
 //  Copyright (c) 2015 Wei Wang <onevcat@gmail.com>
 //
@@ -25,9 +24,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "VVSwiftPropertyCommenter.h"
 
-@interface VVArgument : NSObject
-@property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *name;
+@implementation VVSwiftPropertyCommenter
+
+-(NSString *) document
+{
+    return [NSString stringWithFormat:@"%@/// <#Description#>", self.indent];
+}
+
 @end

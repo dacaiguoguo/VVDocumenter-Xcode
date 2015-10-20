@@ -1,9 +1,8 @@
 //
-//  Argument.h
+//  VVTextResult.h
 //  VVDocumenter-Xcode
-
 //
-//  Created by 王 巍 on 13-7-19.
+//  Created by 王 巍 on 14-7-31.
 //
 //  Copyright (c) 2015 Wei Wang <onevcat@gmail.com>
 //
@@ -27,7 +26,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VVArgument : NSObject
-@property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *name;
+@interface VVTextResult : NSObject
+
+@property (nonatomic, assign) NSRange range;
+@property (nonatomic, copy) NSString *string;
+
+-(instancetype) initWithRange:(NSRange)aRange string:(NSString *)aString;
+
 @end
